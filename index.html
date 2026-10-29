@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b14">
+<title>NEXORA — Build What’s Next</title>
+<style>
+:root{--bg:#090b14;--panel:#111522;--panel2:#151a2b;--text:#f5f7ff;--muted:#a4abc0;--line:rgba(255,255,255,.1);--purple:#a78bfa;--cyan:#67e8f9;--pink:#f0abfc;--radius:22px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(ellipse at 15% 0%,rgba(124,58,237,.17),transparent 42%),radial-gradient(ellipse at 85% 20%,rgba(34,211,238,.11),transparent 38%)}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+.container{width:min(1160px,calc(100% - 40px));margin:auto}
+.nav-wrap{position:sticky;top:0;z-index:100;background:rgba(9,11,20,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:.12em;font-size:1.1rem}
+.logo-mark{height:35px;width:35px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#080b14;font-size:1.15rem;box-shadow:0 0 26px #a78bfa44}
+.nav-links{display:flex;align-items:center;gap:30px;color:var(--muted);font-size:.92rem}
+.nav-links a:hover{color:white}
+.btn{border:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 19px;border-radius:12px;font-weight:750;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{color:#080b14;background:linear-gradient(110deg,var(--purple),var(--cyan));box-shadow:0 8px 30px #8b5cf633}
+.btn-ghost{border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text)}
+.menu-toggle{display:none;background:transparent;color:white;border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:1.2rem}
+.hero{min-height:690px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:35px;padding-top:70px;padding-bottom:95px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 12px;border:1px solid #a78bfa44;background:#a78bfa12;color:#d7c8ff;border-radius:999px;font-size:.78rem;font-weight:750;letter-spacing:.04em}
+.pulse{width:7px;height:7px;background:#67e8a5;border-radius:50%;box-shadow:0 0 12px #67e8a5}
+h1{font-size:clamp(3.1rem,6.3vw,5.65rem);line-height:1.02;letter-spacing:-.065em;margin:25px 0 22px;max-width:720px}
+.gradient-text{background:linear-gradient(100deg,#c4b5fd 5%,#67e8f9 55%,#f0abfc 100%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero-copy{font-size:1.08rem;color:var(--muted);max-width:560px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin:30px 0 32px}
+.social-proof{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:.85rem}
+.avatars{display:flex;padding-left:4px}
+.avatar{height:31px;width:31px;margin-left:-5px;border:2px solid var(--bg);border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#c4b5fd,#67e8f9);color:#151525;font-size:.7rem;font-weight:900}
+.hero-art{position:relative;min-height:470px;display:grid;place-items:center}
+.orbit{position:absolute;width:min(430px,95%);aspect-ratio:1;border:1px solid #a78bfa30;border-radius:50%;animation:spin 24s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #67e8f922;border-radius:50%;inset:35px}
+.orbit:after{inset:75px;border-color:#f0abfc22}
+.orbit-dot{position:absolute;top:12%;left:18%;width:13px;height:13px;border-radius:50%;background:var(--cyan);box-shadow:0 0 24px var(--cyan)}
+.core-card{position:relative;width:min(350px,85%);aspect-ratio:.94;border:1px solid #ffffff22;border-radius:30px;background:linear-gradient(145deg,#1b2035dd,#101320e8);backdrop-filter:blur(18px);box-shadow:0 30px 100px #0008,0 0 80px #8b5cf61b;padding:25px;transform:rotate(-4deg);animation:float 6s ease-in-out infinite}
+.core-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.76rem}
+.status{color:#86efac;background:#86efac14;border:1px solid #86efac33;padding:5px 9px;border-radius:30px}
+.core-icon{margin:27px auto 17px;width:100px;height:100px;border-radius:29px;display:grid;place-items:center;font-size:3.4rem;background:linear-gradient(135deg,#a78bfa33,#67e8f933);border:1px solid #ffffff22;box-shadow:inset 0 0 30px #a78bfa17}
+.core-card h3{text-align:center;font-size:1.4rem}
+.core-card p{text-align:center;color:var(--muted);font-size:.84rem;margin-top:4px}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:25px}
+.mini-stat{background:#ffffff07;border:1px solid #ffffff0b;border-radius:13px;padding:12px}
+.mini-stat strong{display:block;font-size:1.25rem}
+.mini-stat span{font-size:.72rem;color:var(--muted)}
+.float-chip{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;background:#151a2be8;border:1px solid var(--line);border-radius:14px;padding:12px 15px;box-shadow:0 15px 40px #0005;backdrop-filter:blur(12px);font-size:.82rem;animation:float 5s ease-in-out infinite}
+.float-chip b{display:block}
+.float-chip small{color:var(--muted)}
+.chip-one{top:13%;right:0}
+.chip-two{bottom:12%;left:-2%;animation-delay:-2s}
+.chip-icon{height:35px;width:35px;border-radius:10px;display:grid;place-items:center;background:#a78bfa20;font-size:1.2rem}
+.trusted{padding:24px 0 45px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.trusted p{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.brand-row{display:flex;justify-content:space-around;align-items:center;gap:20px;flex-wrap:wrap;color:#8b91a8;font-size:1.05rem;font-weight:850;letter-spacing:.06em}
+section{padding:100px 0}
+.section-head{text-align:center;max-width:700px;margin:0 auto 48px}
+.kicker{color:var(--cyan);text-transform:uppercase;font-size:.76rem;font-weight:800;letter-spacing:.17em}
+h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.13;letter-spacing:-.045em;margin:13px 0 16px}
+.section-head p,.about-copy p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card,.project-card,.about-panel,.contact-card{border:1px solid var(--line);background:linear-gradient(145deg,#151a2bba,#0f1220);border-radius:var(--radius)}
+.service-card{padding:28px;transition:transform .25s,border-color .25s}
+.service-card:hover,.project-card:hover{transform:translateY(-7px);border-color:#a78bfa77}
+.service-icon{height:52px;width:52px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#a78bfa25,#67e8f91c);border:1px solid #ffffff12;font-size:1.55rem;margin-bottom:22px}
+.service-card h3{font-size:1.15rem;margin-bottom:9px}
+.service-card p{color:var(--muted);font-size:.91rem}
+.card-link{display:inline-flex;margin-top:20px;color:#c4b5fd;font-weight:750;font-size:.86rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:55px}
+.about-panel{padding:30px;position:relative;overflow:hidden;min-height:380px}
+.about-panel:before{content:"";position:absolute;width:280px;height:280px;right:-70px;top:-75px;border-radius:50%;background:#8b5cf633;filter:blur(35px)}
+.code-window{position:relative;background:#090c16;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.window-bar{display:flex;gap:6px;padding:13px;border-bottom:1px solid var(--line)}
+.window-bar i{width:8px;height:8px;border-radius:50%;background:#fda4af}
+.window-bar i:nth-child(2){background:#fde68a}
+.window-bar i:nth-child(3){background:#86efac}
+.code{padding:23px;color:#b7c3df;font-family:ui-monospace,SFMono-Regular,monospace;font-size:.83rem;line-height:2;white-space:pre-wrap}
+.purple{color:#c4b5fd}
+.cyan{color:#67e8f9}
+.green{color:#86efac}
+.about-copy p{margin:0 0 18px}
+.check-list{list-style:none;display:grid;gap:12px;margin:23px 0 28px}
+.check-list li{display:flex;gap:10px;align-items:flex-start}
+.check{color:#86efac;font-weight:900}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.metric{padding:24px 12px;text-align:center;border:1px solid var(--line);border-radius:17px;background:#ffffff04}
+.metric strong{font-size:2rem;letter-spacing:-.04em;display:block}
+.metric span{color:var(--muted);font-size:.82rem}
+.portfolio{background:linear-gradient(180deg,transparent,#11142377,transparent)}
+.filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:-18px 0 30px}
+.filter-btn{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+.filter-btn.active,.filter-btn:hover{background:#a78bfa20;color:#e8ddff;border-color:#a78bfa66}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.project-card{overflow:hidden;transition:transform .25s,border-color .25s}
+.project-art{height:205px;display:grid;place-items:center;position:relative;overflow:hidden}
+.project-art:before,.project-art:after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}
+.art-one{background:linear-gradient(135deg,#29214b,#121c34)}
+.art-one:before{width:150px;height:150px;background:#a78bfa55;left:15%;top:12%}
+.art-one:after{width:110px;height:110px;background:#67e8f955;right:13%;bottom:7%}
+.art-two{background:linear-gradient(135deg,#153b43,#15192f)}
+.art-two:before{width:180px;height:180px;background:#67e8f933;left:20%;top:0}
+.art-two:after{width:120px;height:120px;background:#86efac33;right:10%;bottom:0}
+.art-three{background:linear-gradient(135deg,#49223f,#1a1835)}
+.art-three:before{width:160px;height:160px;background:#f0abfc44;left:10%;top:10%}
+.art-three:after{width:100px;height:100px;background:#a78bfa55;right:10%;bottom:5%}
+.mockup{position:relative;z-index:1;width:72%;height:125px;border-radius:13px;border:1px solid #ffffff44;background:#ffffff14;backdrop-filter:blur(12px);box-shadow:0 15px 40px #0004;padding:14px;transform:rotate(-4deg)}
+.mock-line{height:7px;width:60%;background:#ffffff66;border-radius:5px;margin:8px 0}
+.mock-line.short{width:35%}
+.mock-blocks{display:flex;gap:7px;margin-top:15px}
+.mock-blocks span{height:40px;flex:1;background:#ffffff1c;border:1px solid #ffffff20;border-radius:7px}
+.project-info{padding:21px}
+.project-meta{font-size:.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.project-info h3{margin:7px 0}
+.project-info p{font-size:.88rem;color:var(--muted)}
+.cta{padding:0 0 95px}
+.cta-inner{position:relative;overflow:hidden;text-align:center;padding:65px 25px;border-radius:28px;border:1px solid #a78bfa44;background:radial-gradient(ellipse at 10% 0%,#8b5cf633,transparent 45%),radial-gradient(ellipse at 90% 100%,#22d3ee22,transparent 45%),#111423}
+.cta-inner p{color:var(--muted);max-width:540px;margin:0 auto 25px}
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px}
+.contact-copy p{color:var(--muted);margin-bottom:24px}
+.contact-detail{display:flex;gap:12px;align-items:center;margin:18px 0;color:var(--muted)}
+.contact-detail span:first-child{height:40px;width:40px;display:grid;place-items:center;border-radius:12px;background:#a78bfa1c;color:#d7c8ff}
+.contact-card{padding:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:16px}
+label{display:block;font-size:.83rem;margin-bottom:7px;color:#dce0f0}
+input,textarea{width:100%;background:#090c16;border:1px solid var(--line);border-radius:11px;padding:13px 14px;color:white;outline:none;transition:border-color .2s}
+input:focus,textarea:focus{border-color:#a78bfa}
+textarea{min-height:130px;resize:vertical}
+.form-note{font-size:.8rem;color:var(--muted);margin-top:12px}
+#form-message{font-size:.88rem;margin-top:12px;color:#86efac;min-height:1.4em}
+footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:.84rem}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-links{display:flex;gap:18px}
+.footer-links a:hover{color:white}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.back-top{position:fixed;right:22px;bottom:22px;height:43px;width:43px;border-radius:13px;border:1px solid var(--line);background:#171b2b;color:white;cursor:pointer;opacity:0;pointer-events:none;transition:.2s;z-index:80}
+.back-top.show{opacity:1;pointer-events:auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
+@media(max-width:900px){
+.hero{grid-template-columns:1fr;padding-top:65px;text-align:center}
+.hero-copy{margin:auto}
+.hero-actions,.social-proof{justify-content:center}
+.hero-art{min-height:430px}
+.cards,.projects{grid-template-columns:repeat(2,1fr)}
+.about-grid{gap:30px}
+.contact-grid{grid-template-columns:1fr}
+.nav-links{gap:17px}
+}
+@media(max-width:650px){
+.container{width:min(100% - 30px,1160px)}
+nav{height:68px}
+.menu-toggle{display:block}
+.nav-cta{display:none}
+.nav-links{display:none;position:absolute;left:15px;right:15px;top:68px;padding:18px;background:#111522;border:1px solid var(--line);border-radius:16px;flex-direction:column;align-items:stretch;gap:0}
+.nav-links.open{display:flex}
+.nav-links a{padding:12px}
+.hero{padding-top:48px;padding-bottom:60px;min-height:0}
+h1{font-size:clamp(2.8rem,13vw,4.2rem)}
+.hero-art{min-height:380px}
+.core-card{width:285px}
+.chip-one{right:-2px;top:8%}
+.chip-two{left:-2px;bottom:7%}
+.orbit{width:330px}
+.brand-row{font-size:.85rem}
+.trusted{padding:22px 0 32px}
+section{padding:72px 0}
+.cards,.projects{grid-template-columns:1fr}
+.about-grid{grid-template-columns:1fr}
+.about-panel{min-height:330px;padding:18px}
+.metrics{grid-template-columns:repeat(2,1fr)}
+.form-row{grid-template-columns:1fr;gap:0}
+.contact-card{padding:20px}
+.cta-inner{padding:48px 20px}
+.footer-inner{justify-content:center;text-align:center}
+.footer-links{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+.reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<header class="nav-wrap">
+<nav class="container" aria-label="Main navigation">
+<a class="logo" href="#home" aria-label="Nexora home"><span class="logo-mark">N</span>NEXORA</a>
+<div class="nav-links" id="navLinks">
+<a href="#services">Services</a><a href="#about">About</a><a href="#work">Our work</a><a href="#contact">Contact</a>
+</div>
+<a class="btn btn-primary nav-cta" href="#contact">Let’s talk <span>↗</span></a>
+<button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+</nav>
+</header>
+<main>
+<section class="hero container" id="home">
+<div class="hero-content">
+<div class="eyebrow"><span class="pulse"></span> YOUR NEXT BIG IDEA STARTS HERE</div>
+<h1>We build digital<br>that moves you <span class="gradient-text">forward.</span></h1>
+<p class="hero-copy">We turn ambitious ideas into meaningful digital experiences. Strategy, design, and technology — working together to make your next big thing happen.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="#work">Explore our work <span>↗</span></a><a class="btn btn-ghost" href="#services">Discover what we do <span>↓</span></a></div>
+<div class="social-proof"><div class="avatars"><span class="avatar">N</span><span class="avatar">A</span><span class="avatar">K</span><span class="avatar">+</span></div><span>Good ideas. Great people. Real impact.</span></div>
+</div>
+<div class="hero-art" aria-label="Abstract digital innovation illustration">
+<div class="orbit"><span class="orbit-dot"></span></div>
+<div class="core-card"><div class="core-top"><span>● NEXORA LABS</span><span class="status">● ONLINE</span></div><div class="core-icon">✳</div><h3>Ideas into impact.</h3><p>Designing tomorrow, today.</p><div class="mini-stats"><div class="mini-stat"><strong>01<span class="gradient-text">.</span></strong><span>Think boldly</span></div><div class="mini-stat"><strong>∞</strong><span>Keep building</span></div></div></div>
+<div class="float-chip chip-one"><span class="chip-icon">✦</span><span><b>Creative thinking</b><small>Ideas without limits</small></span></div>
+<div class="float-chip chip-two"><span class="chip-icon">↗</span><span><b>Built for growth</b><small>Made to make a difference</small></span></div>
+</div>
+</section>
+<div class="trusted container"><p>Curious minds. Bold collaborations.</p><div class="brand-row"><span>◈ NOVA</span><span>✳ orbit</span><span>⌘ vertex</span><span>△ monogram</span><span>◉ pixelworks</span></div></div>
+
+<section id="services">
+<div class="container">
+<div class="section-head reveal"><span class="kicker">What we do</span><h2>Big-picture thinking.<br><span class="gradient-text">Beautiful execution.</span></h2><p>From the first spark of an idea to the final product, we bring the right mix of creativity and technology to every challenge.</p></div>
+<div class="cards">
+<article class="service-card reveal"><div class="service-icon">✦</div><h3>Digital Strategy</h3><p>Clear direction for your next move. We turn business goals into practical digital roadmaps that create value.</p><a class="card-link" href="#contact">Plan your next step ↗</a></article>
+<article class="service-card reveal"><div class="service-icon">◈</div><h3>UI/UX & Branding</h3><p>Distinctive identities and intuitive experiences that feel effortless, look memorable, and connect with people.</p><a class="card-link" href="#contact">Make it memorable ↗</a></article>
+<article class="service-card reveal"><div class="service-icon">⌘</div><h3>Web Development</h3><p>Fast, responsive, accessible websites and digital products built around your users and your ambitions.</p><a class="card-link" href="#contact">Build something great ↗</a></article>
+<article class="service-card reveal"><div class="service-icon">✳</div><h3>AI & Automation</h3><p>Smarter workflows and thoughtful AI integrations that help teams spend less time on repetitive work.</p><a class="card-link" href="#contact">Explore possibilities ↗</a></article>
+<article class="service-card reveal"><div class="service-icon">▧</div><h3>Product Design</h3><p>From rough concepts to polished prototypes, we shape products people understand, enjoy, and return to.</p><a class="card-link" href="#contact">Shape your product ↗</a></article>
+<article class="service-card reveal"><div class="service-icon">↗</div><h3>Growth & Analytics</h3><p>Make informed decisions with useful insights, measurable experiments, and continuous improvement.</p><a class="card-link" href="#contact">Grow with purpose ↗</a></article>
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="container about-grid">
+<div class="about-panel reveal"><div class="code-window"><div class="window-bar"><i></i><i></i><i></i></div><div class="code"><span class="purple">const</span> vision = <span class="green">"Think bigger"</span>;<br><span class="purple">const</span> design = <span class="green">"Make it simple"</span>;<br><span class="purple">const</span> impact = <span class="cyan">build</span>(vision, design);<br><br><span class="purple">if</span> (ideas.length) {<br>&nbsp;&nbsp;create(impact);<br>&nbsp;&nbsp;keepImproving();<br>}<br><br><span class="cyan">// The future is a work in progress.</span><br><span class="green">✓ Ready to create</span></div></div></div>
+<div class="about-copy reveal"><span class="kicker">A little about us</span><h2>Not just another agency. <span class="gradient-text">Your creative co-pilot.</span></h2><p>Nexora is a fictional digital innovation studio built around one simple belief: technology should make life better, not more complicated.</p><p>We bring strategy, design, and engineering into one collaborative process — so good ideas become useful, human-centered experiences.</p><ul class="check-list"><li><span class="check">✓</span><span>People-first, always</span></li><li><span class="check">✓</span><span>Creative ideas backed by clear thinking</span></li><li><span class="check">✓</span><span>Built to evolve, not just to launch</span></li></ul><a class="btn btn-ghost" href="#contact">Meet your next partner ↗</a></div>
+</div>
+<div class="container metrics reveal"><div class="metric"><strong>01<span class="gradient-text">.</span></strong><span>One collaborative team</span></div><div class="metric"><strong>360°</strong><span>End-to-end thinking</span></div><div class="metric"><strong>∞</strong><span>Room to experiment</span></div><div class="metric"><strong>100<span class="gradient-text">%</span></strong><span>Focus on people</span></div></div>
+</section>
+
+<section class="portfolio" id="work">
+<div class="container">
+<div class="section-head reveal"><span class="kicker">Selected concepts</span><h2>Ideas made <span class="gradient-text">tangible.</span></h2><p>A few concept projects showing how thoughtful design and technology can work together. These are illustrative portfolio samples.</p></div>
+<div class="filters reveal" role="group" aria-label="Filter projects"><button class="filter-btn active" data-filter="all">All projects</button><button class="filter-btn" data-filter="web">Web design</button><button class="filter-btn" data-filter="product">Product</button><button class="filter-btn" data-filter="brand">Branding</button></div>
+<div class="projects">
+<article class="project-card reveal" data-category="web"><div class="project-art art-one"><div class="mockup"><div class="mock-line short"></div><div class="mock-line"></div><div class="mock-blocks"><span></span><span></span><span></span></div></div></div><div class="project-info"><span class="project-meta">Web design · Concept</span><h3>Nova Finance</h3><p>A clearer, calmer digital experience for managing money and goals.</p></div></article>
+<article class="project-card reveal" data-category="product"><div class="project-art art-two"><div class="mockup"><div class="mock-line short"></div><div class="mock-line"></div><div class="mock-blocks"><span></span><span></span><span></span></div></div></div><div class="project-info"><span class="project-meta">Product · Concept</span><h3>Orbit Workspace</h3><p>A focused productivity dashboard designed to make busy days feel lighter.</p></div></article>
+<article class="project-card reveal" data-category="brand"><div class="project-art art-three"><div class="mockup"><div class="mock-line short"></div><div class="mock-line"></div><div class="mock-blocks"><span></span><span></span><span></span></div></div></div><div class="project-info"><span class="project-meta">Branding · Concept</span><h3>Monogram Studio</h3><p>A bold visual identity system for a new generation of creators.</p></div></article>
+</div>
+</div>
+</section>
+
+<section class="cta"><div class="container"><div class="cta-inner reveal"><span class="kicker">Have a big idea?</span><h2>Let’s make <span class="gradient-text">it happen.</span></h2><p>Have a challenge, a rough sketch, or a “what if?” We’d love to hear about it and explore what we can create together.</p><a class="btn btn-primary" href="#contact">Start a conversation ↗</a></div></div></section>
+
+<section id="contact">
+<div class="container contact-grid">
+<div class="contact-copy reveal"><span class="kicker">Get in touch</span><h2>Tell us what you're <span class="gradient-text">imagining.</span></h2><p>Share a little about your idea. This demo form will validate your message in the browser, ready for you to connect it to a real email or backend service.</p><div class="contact-detail"><span>✉</span><span><b style="color:var(--text);display:block">Email</b>hello@nexora.example</span></div><div class="contact-detail"><span>⌖</span><span><b style="color:var(--text);display:block">Location</b>Building ideas, everywhere</span></div><div class="contact-detail"><span>◷</span><span><b style="color:var(--text);display:block">Availability</b>Open to new ideas</span></div></div>
+<form class="contact-card reveal" id="contactForm">
+<div class="form-row"><div class="field"><label for="name">Your name</label><input id="name" name="name" placeholder="Alex Morgan" required minlength="2"></div><div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="alex@example.com" required></div></div>
+<div class="field"><label for="service">What can we help with?</label><input id="service" name="service" placeholder="Website, branding, product idea..."></div>
+<div class="field"><label for="message">Tell us a little about it</label><textarea id="message" name="message" placeholder="A few details about your idea..." required minlength="10"></textarea></div>
+<button class="btn btn-primary" type="submit">Prepare message <span>↗</span></button><p class="form-note">Demo only — this form does not send or store your details.</p><div id="form-message" role="status" aria-live="polite"></div>
+</form>
+</div>
+</section>
+</main>
+<footer><div class="container footer-inner"><a class="logo" href="#home"><span class="logo-mark">N</span>NEXORA</a><span>© <span id="year"></span> Nexora Studio. Demo website concept.</span><div class="footer-links"><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a></div></div></footer>
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  menuToggle.textContent = isOpen ? '✕' : '☰';
+});
+navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open navigation menu');
+  menuToggle.textContent = '☰';
+}));
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.filter-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    button.classList.add('active');
+    const filter = button.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(card => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.hidden = !show;
+      if (show) card.classList.add('visible');
+    });
+  });
+});
+
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => backTop.classList.toggle('show', window.scrollY > 500), {passive:true});
+backTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+document.getElementById('contactForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const name = document.getElementById('name').value.trim();
+  const message = document.getElementById('message').value.trim();
+  if (name.length < 2 || message.length < 10) {
+    document.getElementById('form-message').textContent = 'Please add your name and a message of at least 10 characters.';
+    return;
+  }
+  document.getElementById('form-message').textContent = `Thanks, ${name}! Your demo message is ready. Connect this form to a backend or email service to actually send it.`;
+  form.reset();
+});
+</script>
+</body>
+</html>
